@@ -16,7 +16,7 @@ t-appz allows you create your own   Native M-commerce Apps for iOS & Android Sma
 The T-appz PHP SDK can be installed with [Composer](https://getcomposer.org/). Run this command:
 
 ```sh
-composer require tappz/php-sdk   | (comming soon)
+composer require tappz/php-sdk    (coming soon)
 ```
 
 ## How t-appz works 
