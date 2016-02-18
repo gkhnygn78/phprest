@@ -20,6 +20,8 @@ composer require tappz/php-sdk    (coming soon)
 ```
 
 ## How t-appz works 
+ ![alt tag](https://raw.githubusercontent.com/tappz/t-appz-php-sdk/master/docs/assets/how-its-works.jpg)
+
 For creating your own   Native M-commerce Apps T-appz  you should build your own RESTful API.t-appz   PHP SDK  helps you create your own RESTful API.
 Your RESTful api  should   HTTP methods mapped as follows   : 
 
