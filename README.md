@@ -4,12 +4,6 @@
 This repository contains the open source PHP SDK that allows you to create your own rest api for T-appz
 
 
-## Introduction
-
-t-appz allows you create your own   Native M-commerce Apps for iOS & Android Smartphones & Tablets
-
- ![alt tag](http://t-appz.com/wp-content/uploads/2015/05/cihazlar.png)
-
 ## Installation
 
 
