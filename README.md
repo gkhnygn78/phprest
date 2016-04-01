@@ -34,7 +34,7 @@ Your RESTful api  should   HTTP methods mapped as follows   :
 | /passwordRecovery | POST       |
 | /purchaseOrder/{orderId} | GET       |
 | /purchaseOrder/{orderId}/address | POST|
-| /api/userAgreement |GET|
+| /userAgreement |GET|
 | /profile/favoriteProducts |GET|
 | /profile/addFavoriteProduct/{productId} |POST|
 | /profile/removeFavoriteProduct/{productId} |POST|
