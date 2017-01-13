@@ -60,9 +60,7 @@ Your RESTful api  should   HTTP methods mapped as follows   :
 | /basket/{basketId}/userPoints| POST |
 | /basket/{basketId}/purchase/card | POST |
 | /basket/{basketId}/purchase/threeD | POST |
-| /basket/{basketId}/purchase/moneyTransfer | POST |
-| /basket/{basketId}/purchase/paypal | POST |
-| /basket/{basketId}/purchase/applePay  | POST |
+| /basket/{basketId}/pay | POST |
 | /basket/{basketId}/contract| GET |
 | /basket/{basketId}/giftWrapping | POST |
 | /branches| GET | 
