@@ -6,7 +6,7 @@
  * Time: 09:39
  */
 
-namespace TmobLabs\Tappz\Product;
+namespace TmobLabs\Tappz\Index;
 
 
 class Actions
