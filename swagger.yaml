@@ -1,0 +1,3841 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: t-appz Api Documentation
+host: 'magentoproduction.t-appz.com:80'
+schemes:
+  - http
+paths:
+  /tappz/api/index:
+    get:
+      tags:
+        - Api
+      summary: "Index service is used for fetch products and banner images for the main page\r\n            of your application. It does not requires any parameter and can be cached\r\n            based on application configuration on the wizard. It returns an Index model.\r\n            You can see more detail on response model of this service. We prefer response\r\n            contains at least 3 product lists and product lists have 3 products. Banners \r\n            can have actions on click as \"go to product\", \"search a text\" and \"open a URL\".\r\n            You can more details in Action model."
+      operationId: Api_GetIndex
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Index'
+      deprecated: false
+  /tappz/api/categories:
+    get:
+      tags:
+        - Api
+      summary: Gets root category list.
+      operationId: Api_GetCategories
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Category'
+      deprecated: false
+  '/tappz/api/category/{categoryId}':
+    get:
+      tags:
+        - Api
+      summary: Gets the category info with childer categories with given category id.
+      operationId: Api_GetCategory
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: categoryId
+          in: path
+          description: Id of a category
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Category'
+      deprecated: false
+  /tappz/api/productSearch:
+    get:
+      tags:
+        - Api
+      summary: "Searches products by phrase and category. This method is user for both search and \r\n            product listing under a category. It is also called with a search and a category id \r\n            when a category filter selected. Pagination is started with 0(zero) and pageSize is \r\n            number of the products in a certain page. Sort value is the sort id of a selected \r\n            sort item in the sort list. Filter query is a combination of selected filter with a \r\n            certain format. The format is \r\n            \r\n            \"filterId1:filterItemId1,filterItemId2;filterId2:filterItemId3;filterId3:rangeStart,rangeEnd\""
+      operationId: Api_Search
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: phrase
+          in: query
+          description: Search phrase.
+          required: false
+          type: string
+        - name: category
+          in: query
+          description: >-
+            If this param is not null then method will search product under this
+            category.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Presents page index.
+          required: false
+          type: string
+        - name: pageSize
+          in: query
+          description: Presents how many products will be showed one page.
+          required: false
+          type: string
+        - name: sort
+          in: query
+          description: Presents how products will be ordered.
+          required: false
+          type: string
+        - name: filters
+          in: query
+          description: Filter query for the requested list
+          required: false
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  '/tappz/api/product/{productId}':
+    get:
+      tags:
+        - Api
+      summary: Gets a product with id
+      operationId: Api_ProductById
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          description: Id of product
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+      deprecated: false
+  /tappz/api/product:
+    get:
+      tags:
+        - Api
+      summary: "Gets a product with barcode. This method used when a barcode is read by\r\n            cliet application. This method is optional, if you not return a product model,\r\n            barcode reader becomes disabled in the application. You need to update client \r\n            applications if you decide to implement this method"
+      operationId: Api_ProductByBarcode
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: barcode
+          in: query
+          description: Barcode of a product
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+      deprecated: false
+  '/tappz/api/product/{productId}/related':
+    get:
+      tags:
+        - Api
+      summary: "Gets related product list of a certain product. This method is called \r\n            asynchronously after a get product method call"
+      operationId: Api_RelatedProducts
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          description: Id of a product
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+      deprecated: false
+  /tappz/api/profile:
+    get:
+      tags:
+        - Api
+      summary: "Gets a customer. Customer identifier should be related to accessToken part \r\n            of authorization header. Access token is a property of profile model. \r\n            Authorization header is obtained by combining AuthorizationKey and AccessToken. AuthorizaionKey and AccessToken \r\n            separated by space (\" \"). AuthorizationKey has three parameters. The first parameter is servise username, the second \r\n            parameter is unique hash value that is encrypted by sha1 and that hash is obtained by combining servicePassword, uri and\r\n            time (yyyyMMddHHmm). These parameters separated by \"|\". The third parameter of AuthorizationKey is time (yyyyMMddHHmm). \r\n            AccessToken is unique code for each user and will be produced by you. That is required for all methods that need user \r\n            information."
+      operationId: Api_GetCustomer
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: isInit
+          in: query
+          required: true
+          type: boolean
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Profile'
+      deprecated: false
+    put:
+      tags:
+        - Api
+      summary: "Lets user to edit personal information. First name, last name, birth date, gender, \r\n            phone number can be editted"
+      operationId: Api_UpdateCustomer
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: profile
+          in: body
+          description: Editted customer information
+          required: true
+          schema:
+            $ref: '#/definitions/Profile'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Profile'
+      deprecated: false
+    post:
+      tags:
+        - Api
+      summary: 'Registers a new user, see more detail in Profile model for posted fields'
+      operationId: Api_RegisterCustomer
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: profile
+          in: body
+          description: 'User''s information. (email, name phone number etc.)'
+          required: true
+          schema:
+            $ref: '#/definitions/Profile'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Profile'
+      deprecated: false
+  /tappz/api/login:
+    post:
+      tags:
+        - Api
+      summary: "Lets existing user to log in. If you use other then e-mail for username, \r\n            please contact us."
+      operationId: Api_Login
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: login
+          in: body
+          description: User email and password
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Profile'
+      deprecated: false
+  /tappz/api/fblogin:
+    post:
+      tags:
+        - Api
+      summary: Lets user login or register with facebook account
+      operationId: Api_FacebookLogin
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: fbLogin
+          in: body
+          description: Facebook access token (long token) and user id
+          required: true
+          schema:
+            $ref: '#/definitions/FacebookLogin'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Profile'
+      deprecated: false
+  /tappz/api/passwordRecovery:
+    post:
+      tags:
+        - Api
+      summary: "This method used for sending password reset or reminder e-mail for customers\r\n            who lost password"
+      operationId: Api_LostPassword
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: lostPassword
+          in: body
+          description: E-mail address to send reset or reminder mail
+          required: true
+          schema:
+            $ref: '#/definitions/LostPassword'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LostPassword'
+      deprecated: false
+  /tappz/api/purchaseOrder:
+    get:
+      tags:
+        - Api
+      summary: "Gets orders of a customer. This list can be limited for customers who have lots\r\n            of orders."
+      operationId: Api_GetOrderList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+      deprecated: false
+  '/tappz/api/purchaseOrder/{orderId}':
+    get:
+      tags:
+        - Api
+      summary: Gets details of a specific order with given order id
+      operationId: Api_GetOrderDetail
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: orderId
+          in: path
+          description: Id of an order
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Order'
+      deprecated: false
+  '/tappz/api/purchaseOrder/{orderId}/address':
+    post:
+      tags:
+        - Api
+      summary: Allows to select address that purchased products is delivered.
+      operationId: Api_SetOrderAddress
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: orderId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: delivery
+          in: body
+          description: >-
+            Delivery informations.(Billing and shipping addresses, shipping
+            method etc.)
+          required: true
+          schema:
+            $ref: '#/definitions/Delivery'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Order'
+      deprecated: false
+  /tappz/api/userAgreement:
+    get:
+      tags:
+        - Api
+      summary: Gets a user agreement text
+      operationId: Api_UserAgreement
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserAgreement'
+      deprecated: false
+  /tappz/api/profile/favoriteProducts:
+    get:
+      tags:
+        - Api
+      summary: Gets user's favorite products
+      operationId: Api_GetFavoriteProducts
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  '/tappz/api/profile/addFavoriteProduct/{productId}':
+    post:
+      tags:
+        - Api
+      summary: Add product with productId to user's favorite products
+      operationId: Api_AddFavoriteProduct
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  '/tappz/api/profile/removeFavoriteProduct/{productId}':
+    post:
+      tags:
+        - Api
+      summary: Remove product with productId from user's favorite products
+      operationId: Api_RemoveFavoriteProduct
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  /tappz/api/profile/backInStockSubscriptions:
+    get:
+      tags:
+        - Api
+      summary: Gets user's favorite products
+      operationId: Api_GetBackInStockSubscriptions
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  /tappz/api/profile/addBackInStockSubscriptions:
+    post:
+      tags:
+        - Api
+      summary: Add product to user's favorite products
+      operationId: Api_AddBackInStockSubscriptions
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: product
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ProductSelectedVariant'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  /tappz/api/profile/removeBackInStockSubscriptions:
+    post:
+      tags:
+        - Api
+      summary: Remove product from user's favorite products
+      operationId: Api_RemoveBackInStockSubscriptions
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: product
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ProductSelectedVariant'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductListModel'
+      deprecated: false
+  /tappz/api/addresses:
+    put:
+      tags:
+        - Api
+      summary: Allows user to edit her/his address information
+      operationId: Api_UpdateAddress
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: address
+          in: body
+          description: Address model
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Address'
+      deprecated: false
+    post:
+      tags:
+        - Api
+      summary: Lets customer to add new address
+      operationId: Api_AddAddress
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: address
+          in: body
+          description: Address model
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Address'
+      deprecated: false
+    delete:
+      tags:
+        - Api
+      summary: Lets user to delete her/his address
+      operationId: Api_DeleteAddress
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: address
+          in: body
+          description: Address model
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Address'
+      deprecated: false
+  /tappz/api/countries:
+    get:
+      tags:
+        - Api
+      summary: 'Gets country list, optional'
+      operationId: Api_GetCountryList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Countries'
+      deprecated: false
+  '/tappz/api/states/{countryId}':
+    get:
+      tags:
+        - Api
+      summary: 'Gets state list of a country, optional'
+      operationId: Api_GetStatesList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: countryId
+          in: path
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/States'
+      deprecated: false
+  '/tappz/api/cities/{countryId}':
+    get:
+      tags:
+        - Api
+      summary: 'Gets city list of a country, optional'
+      operationId: Api_GetCityList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: countryId
+          in: path
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Cities'
+      deprecated: false
+  '/tappz/api/districts/{cityId}':
+    get:
+      tags:
+        - Api
+      summary: 'Gets district list of a city, optional'
+      operationId: Api_GetDistrictList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: cityId
+          in: path
+          description: Id or code of a city
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Districts'
+      deprecated: false
+  '/tappz/api/towns/{districtId}':
+    get:
+      tags:
+        - Api
+      summary: 'Gets list of towns, optional'
+      operationId: Api_GetTownList
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: districtId
+          in: path
+          description: Id or code of a district
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Towns'
+      deprecated: false
+  '/tappz/api/basket':
+    get:
+      tags:
+        - Api
+      summary: "Gets user's basket. This method can be used with access token posted on \r\n            authorization header"
+      operationId: Api_GetBasket
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+
+  '/tappz/api/basket/{basketId}' :
+    get:
+      tags:
+        - Api
+      summary: "Gets user's basket. This method can be used with access token posted on \r\n  authorization header"
+      operationId: Api_GetBasketById
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: true
+  '/tappz/api/basket/{anonymousBasketId}/merge':
+    post:
+      tags:
+        - Api
+      summary: "Merges anonymous basket model into logged in customer's basket. This method \r\n            is called after login, facebooklogin and register to merge basket into\r\n            customer's own basket if available. This is necessary not to lose anonymous\r\n            baskets in space and time when customer login to application"
+      operationId: Api_MergeBasket
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: anonymousBasketId
+          in: path
+          description: Anonymous basket id
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/lines':
+    post:
+      tags:
+        - Api
+      summary: "Syncronizes basket when basket model has changed on customer actions.\r\n            This method is used when customers add, remove or update lines of basket.\r\n            A line is posted as zero quantity if removed and actual quantity if added\r\n            or updated"
+      operationId: Api_UpdateBasket
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: basketLines
+          in: body
+          description: Actual states of basket lines
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateBasketV2'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/address':
+    post:
+      tags:
+        - Api
+      summary: Allows to select address that purchased products is delivered.
+      operationId: Api_SelectBasketAddress
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: delivery
+          in: body
+          description: Delivery informations.(Billing and shipping addresses)
+          required: true
+          schema:
+            $ref: '#/definitions/Delivery'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/shipment':
+    get:
+      tags:
+        - Api
+      summary: Returns shipment method list of a basket
+      operationId: Api_GetBasketV2Shippment
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ShippingMethodList'
+      deprecated: false
+    post:
+      tags:
+        - Api
+      summary: Allows to select shipping for selected address.
+      operationId: Api_SetBasketV2Shippment
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: shippingMethod
+          in: body
+          description: Seleced shipping method
+          required: true
+          schema:
+            $ref: '#/definitions/ShippingMethod'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/discount':
+    post:
+      tags:
+        - Api
+      summary: Allows to add discount to basket with code.
+      operationId: Api_SelectBasketDiscount
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: discount
+          in: body
+          description: 'Discount code to be added, only promo code field is posted'
+          required: true
+          schema:
+            $ref: '#/definitions/Discount'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/discount/{promoCode}':
+    delete:
+      tags:
+        - Api
+      summary: Deletes a discount code from a basket
+      operationId: Api_DeleteBasketDiscount
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: promeCode
+          in: query
+          description: Code to be deleted
+          required: true
+          type: string
+        - name: promoCode
+          in: path
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/giftCheque':
+    post:
+      tags:
+        - Api
+      summary: Sets gift card to basket.
+      operationId: Api_SelectBasketGiftCheque
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: giftCheque
+          in: body
+          description: Selected gift cheque from gift cheque list of customer
+          required: true
+          schema:
+            $ref: '#/definitions/GiftCheque'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/giftCheque/{chequeNumber}':
+    delete:
+      tags:
+        - Api
+      summary: Deletes all gift cards from a basket
+      operationId: Api_DeleteBasketGiftCheque
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: chequeNumber
+          in: path
+          description: Number of the gift cheque to be removed from basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/userPoints':
+    post:
+      tags:
+        - Api
+      summary: Set reward points of customer for discount
+      operationId: Api_SetUserPoints
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: userPoints
+          in: body
+          description: Points model
+          required: true
+          schema:
+            $ref: '#/definitions/UserPoints'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+    delete:
+      tags:
+        - Api
+      summary: Deletes reward points of customer for discount
+      operationId: Api_DeleteUserPoints
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/payment':
+    get:
+      tags:
+        - Api
+      summary: Returns available paymnet options for a basket
+      operationId: Api_GetBasketV2Payment
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PaymentOptions'
+      deprecated: false
+    post:
+      tags:
+        - Api
+      summary: Sets payment type of a basket
+      operationId: Api_SetPaymentMethod
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: paymentMethod
+          in: body
+          description: 'Payment method parameters, more details on PaymentModel model'
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentMethod'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/pay':
+    post:
+      tags:
+        - Api
+      summary: Allows to purchase basket
+      operationId: Api_PurchaseBasketCreditCard
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: payment
+          in: body
+          description: Payment information based on payment method type.
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentMethod'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Order'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/contract':
+    get:
+      tags:
+        - Api
+      summary: Gets contracts of a basket to be signed on purchase process
+      operationId: Api_GetContract
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Contract'
+      deprecated: false
+  '/tappz/api/basket/{basketId}/giftWrapping':
+    post:
+      tags:
+        - Api
+      summary: Sets gift wrapping is enabled or disabled for the basket
+      operationId: Api_SetGiftWrapping
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: giftWrapping
+          in: body
+          description: Gift wrapping information. See more detail in Gift Wrapping model
+          required: true
+          schema:
+            $ref: '#/definitions/GiftWrapping'
+        - name: basketId
+          in: path
+          description: Id of basket
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Basket'
+      deprecated: false
+  /tappz/api/branches:
+    get:
+      tags:
+        - Api
+      summary: Gets all branches in given range
+      operationId: Api_GetBranches
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude of location.
+          required: true
+          type: number
+          format: double
+        - name: range
+          in: query
+          description: Range as kilometer
+          required: false
+          type: number
+          format: double
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Branches'
+      deprecated: false
+  /tappz/api/branchescitylist:
+    get:
+      tags:
+        - Api
+      summary: Gets a city list which have a branch.
+      operationId: Api_GetBranchCities
+      consumes: []
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BranchCity'
+      deprecated: false
+  /tappz/api/store:
+    post:
+      tags:
+        - Api
+      summary: "Optional function for mutli-store support. If you want your mobile application supports multi-store implement this method. \r\n            This method is called once when the application first start then it started to send store id in request headers until user resets store data."
+      operationId: Api_SetStore
+      consumes:
+        - application/json
+        - text/json
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: store
+          in: body
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/Store'
+        - name: Authorization
+          in: header
+          description: Access token. Used for applying content access restrictions.
+          required: true
+          type: string
+          default: >-
+            TappzApi f087f7ef1c0d27971d98004421ddf2c869897bcd 201507210805
+            b2065011-20f1-4c5c-b549-082895ecbe23
+        - name: Accept-Language
+          in: header
+          description: >-
+            Language header. 'en-US' and 'tr-TR' are supported in sample
+            services.
+          required: true
+          type: string
+          default: en-US
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Store'
+      deprecated: false
+definitions:
+  Index:
+    description: Model for response of index service.
+    required:
+      - groups
+      - ads
+    type: object
+    properties:
+      groups:
+        description: "List of group of products for main page product lists, we recommend you have \r\n            at least 3 group for visual consistency"
+        type: array
+        items:
+          $ref: '#/definitions/ProductGroup'
+      ads:
+        description: "List of banners for main page, you can show images and give actions to these \r\n            images, more deatails in Ad model"
+        type: array
+        items:
+          $ref: '#/definitions/Ad'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  ProductGroup:
+    description: 'Group of products with a title, image of group is unnecessary'
+    required:
+      - displayName
+      - items
+    type: object
+    properties:
+      displayName:
+        description: Name and title of the group
+        type: string
+      image:
+        description: 'Depreciated, image of the group is unnecessary'
+        type: string
+      items:
+        description: >-
+          Product list of the group, we recommend you to return at least 3
+          products
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+  Ad:
+    description: Model for showing banner advertisements.
+    required:
+      - image
+    type: object
+    properties:
+      displayName:
+        description: "Title of the banner, if it is empty or null then the title area wil be\r\n            invisible on the main page"
+        type: string
+      image:
+        description: "Image url to show as banner advertisements, image sizes should be 640 x \r\n            540 pixels"
+        type: string
+      action:
+        $ref: '#/definitions/Action'
+        description: "Advertisement actions are used for click event of a banner, actions can be\r\n            \"go to product\", \"search a text\" and \"open a URL\", more details are in\r\n            Action model"
+  Product:
+    description: 'Model for response for product, productSearch and index services.'
+    required:
+      - id
+      - productName
+      - listPrice
+      - picture
+      - productUrl
+    type: object
+    properties:
+      id:
+        description: Id of a product
+        type: string
+      productName:
+        description: Name of a product
+        type: string
+      listPrice:
+        $ref: '#/definitions/Price'
+        description: 'List price of a product, this is the price that customers pay'
+      noImageUrl:
+        description: Default image url if any of product images has errors
+        type: string
+      headline:
+        description: >-
+          Headline is the subtitle of a product, it is below the product an in
+          design, services returns sku number usually
+        type: string
+      strikeoutPrice:
+        $ref: '#/definitions/Price'
+        description: Older price if there is a discount for the product
+      IsCampaign:
+        description: Show a campaign patch on the product if it is campaign product
+        type: boolean
+      creditCardInstallments:
+        description: Credit card installments table
+        type: array
+        items:
+          $ref: '#/definitions/CreditCardInstallments'
+      inStock:
+        description: Show "Not in stock" if true
+        type: boolean
+      shipmentInformation:
+        description: Additional shipment information for supply date or any shipment info
+        type: string
+      isShipmentFree:
+        description: Show a patch if shipping is free
+        type: boolean
+      features:
+        description: "Features of a product grouped as a list. This is usually used for technical\r\n            details of product. You can set it null if you do not have this type of\r\n            content."
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      variants:
+        description: "Variants of product, variants are grouped variant lists with name, see\r\n            example in sample response"
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      shoutOutTexts:
+        description: List of text for important temporary informations for the product.
+        type: array
+        items:
+          type: string
+      actions:
+        description: "We have two types of product action. One of them is popper. Poppers are small\r\n            images below the product image, about free shipping or delivery in one day.\r\n            Poppers can be define as type is set to \"popper\" and image is the small image\r\n            of the popper. We can also add a label about discounts on product listing. \r\n            Discounts can be defined as type is set \"discount\" and text is set to\r\n            percentage of discount or any other text value about discount."
+        type: array
+        items:
+          $ref: '#/definitions/Action'
+      picture:
+        description: Picture of the product for product listing.
+        type: string
+      pictures:
+        description: "Picture list for product detail, you should add url in \"picture\" field if you \r\n            want to display that picture in product detail."
+        type: array
+        items:
+          $ref: '#/definitions/Picture'
+      productDetailUrl:
+        description: "Product detail as HTML CONTENT or plain text. You can leave empty or null if\r\n            you do not have this content."
+        type: string
+      productUrl:
+        description: "Full URL of the product on the website. This will be used for social media \r\n            sharing."
+        type: string
+      points:
+        format: int32
+        description: Pints to be rewarded when you buy this product
+        type: integer
+      unit:
+        description: 'Units of product to be sell, optional.'
+        type: string
+      isFavorite:
+        description: >-
+          If the product is selected as favorite by user. You can set false if
+          there is no user logged in.
+        type: boolean
+      isBackInStockSubscription:
+        description: >-
+          If the product is selected for back in stock subscription by user. You
+          can set false if there is no user logged in.
+        type: boolean
+      backInStockSubSelectedVariant:
+        $ref: '#/definitions/Group'
+        description: Selected variants for back in stock subscription.
+      additionaltexts:
+        description: Additional texts for displaying additional information of products.
+        type: array
+        items:
+          $ref: '#/definitions/AdditionalText'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Action:
+    description: "Actions are used for banner advertisements and product properties. This model \r\n            should behave different for these methods."
+    required:
+      - type
+    type: object
+    properties:
+      type:
+        description: 'Type of action, this value should be "product", "search" or "webview"'
+        type: string
+      image:
+        description: >-
+          Image of action, this value is needed for displaying product actions
+          as image
+        type: string
+      text:
+        description: 'Search text when type is "search", can be empty or null otherwise'
+        type: string
+      productId:
+        description: >-
+          Product id value when type is "product", can be empty or null
+          otherwise
+        type: string
+      href:
+        description: 'URL text when type is "webview", can be empty or null otherwise'
+        type: string
+      categoryId:
+        description: "Category id value when type is \"category\", can be empty or null otherwise,\r\n            not released yet"
+        type: string
+  Price:
+    description: ''
+    required:
+      - amount
+      - currency
+    type: object
+    properties:
+      amount:
+        format: double
+        description: Price in actual currency
+        type: number
+      currency:
+        description: Actual currency
+        type: string
+      amountDefaultCurrency:
+        description: Price in default currency
+        type: string
+  CreditCardInstallments:
+    description: Payment types for credit card
+    required:
+      - type
+      - displayName
+    type: object
+    properties:
+      image:
+        description: Image of credit card
+        type: string
+      type:
+        description: "type or id of the credit card, this value is needed for setting this credit \r\n            card as a payment type"
+        type: string
+      threeDStatus:
+        format: int32
+        description: "3D payment type of the credit card. \r\n            0: Only 2D payment\r\n            1: Only 3D payment\r\n            2: Both 2D and 3D can be used\r\n            3: If 3D fails transaction continues with 2D"
+        type: integer
+      displayName:
+        description: Card name to be displayed
+        type: string
+      installmentNumber:
+        format: int32
+        description: Max installment number.
+        type: integer
+      installments:
+        description: All installments a customer can use
+        type: array
+        items:
+          $ref: '#/definitions/Installment'
+  Group:
+    description: "Groups are used for product features, product variants and\r\n            selected variants in basket line"
+    required:
+      - groupName
+      - groupId
+      - features
+    type: object
+    properties:
+      groupName:
+        description: Name of group to display
+        type: string
+      groupId:
+        description: Id of group
+        type: string
+      features:
+        description: Feature list of group
+        type: array
+        items:
+          $ref: '#/definitions/GroupFeature'
+  Picture:
+    description: ''
+    type: object
+    properties:
+      url:
+        description: url of the picture
+        type: string
+  AdditionalText:
+    description: Model for showing additional text.
+    required:
+      - key
+    type: object
+    properties:
+      key:
+        description: >-
+          Type of text. Key must be match with middleware. Please inform us for
+          key values.
+        type: string
+      text:
+        description: Text to display.
+        type: string
+  Installment:
+    description: An installment for a credit card
+    required:
+      - installmentNumber
+      - installmentPayment
+      - total
+    type: object
+    properties:
+      installmentNumber:
+        format: int32
+        description: Number of installment
+        type: integer
+      installmentPayment:
+        format: double
+        description: Paymnet per installment
+        type: number
+      total:
+        format: double
+        description: Total payment if a customer chooses this payment type
+        type: number
+  GroupFeature:
+    description: Feature is like key value pairs for lists
+    required:
+      - displayName
+      - value
+    type: object
+    properties:
+      displayName:
+        description: Name of feature to display
+        type: string
+      value:
+        description: 'Value of feature, when it is selected this value is posted to services'
+        type: string
+  Category:
+    description: ''
+    required:
+      - id
+      - name
+      - isRoot
+      - isLeaf
+      - parentCategoryId
+    type: object
+    properties:
+      id:
+        description: Id of the category
+        type: string
+      name:
+        description: name ot the category
+        type: string
+      isRoot:
+        description: if it is in the root category list
+        type: boolean
+      isLeaf:
+        description: if it does not have any children
+        type: boolean
+      parentCategoryId:
+        description: id of the parent category
+        type: string
+      children:
+        description: list of children categories
+        type: array
+        items:
+          $ref: '#/definitions/Category'
+      description:
+        description: 'description of category, optional'
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  ProductListModel:
+    description: ''
+    required:
+      - products
+    type: object
+    properties:
+      totalResultCount:
+        format: int32
+        description: Total number of product for this search
+        type: integer
+      pageNumber:
+        format: int32
+        description: Actual page number of pagination
+        type: integer
+      pageSize:
+        format: int32
+        description: Pagination size
+        type: integer
+      products:
+        description: List of found products
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+      filters:
+        description: Available filter list of this search
+        type: array
+        items:
+          $ref: '#/definitions/Filter'
+      sortList:
+        description: Avaliable sort options for this search
+        type: array
+        items:
+          $ref: '#/definitions/Sort'
+      categories:
+        description: List of categories include these products.
+        type: array
+        items:
+          $ref: '#/definitions/Category'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Filter:
+    description: ''
+    required:
+      - id
+      - displayName
+      - FilterType
+      - items
+    type: object
+    properties:
+      id:
+        description: 'Id of filter, used for sending search requests with filter'
+        type: string
+      displayName:
+        description: name of filter to display
+        type: string
+      selectedItemId:
+        description: "selected filter item id, should be set after a request if a filter item\r\n            is selected for this filter"
+        type: string
+      rangeStart:
+        format: int32
+        description: 'if filter type is range (2), start value of price range'
+        type: integer
+      rangeEnd:
+        format: int32
+        description: 'if filter type is range (2), end value of price range'
+        type: integer
+      FilterType:
+        format: int32
+        description: "SingleOption = 0,\r\n            MultipleOption = 1,\r\n            Range = 2,"
+        enum:
+          - 0
+          - 1
+          - 2
+        type: integer
+      items:
+        description: list of items to be selected
+        type: array
+        items:
+          $ref: '#/definitions/FilterItem'
+  Sort:
+    description: ''
+    required:
+      - displayName
+      - value
+    type: object
+    properties:
+      displayName:
+        description: Name of the sort
+        type: string
+      value:
+        description: 'Value of the sort, this value is used in product list requests'
+        type: string
+  FilterItem:
+    description: ''
+    required:
+      - id
+      - displayName
+    type: object
+    properties:
+      id:
+        description: Id of filter item
+        type: string
+      displayName:
+        description: Name of filter item to display
+        type: string
+      productCount:
+        format: int32
+        description: number of products
+        type: integer
+  Profile:
+    description: ''
+    required:
+      - accessToken
+      - fullName
+      - firstName
+      - lastName
+    type: object
+    properties:
+      accessToken:
+        description: "Access token for customer. This token is added to authorization header when\r\n            user login, facebook login or register to application."
+        type: string
+      fullName:
+        description: 'Fullname of customer, only used in GET method.'
+        type: string
+      firstName:
+        description: 'First name of customer, can be updated.'
+        type: string
+      lastName:
+        description: 'Last name of customer, can be updated.'
+        type: string
+      gender:
+        format: int32
+        description: "Gender of customer, can be updated. Values are \r\n            0 : undefined\r\n            1 : male\r\n            2 : female"
+        type: integer
+      IsSubscribe:
+        description: Email subscription status of a customer.
+        type: boolean
+      isSMSSubscribe:
+        description: SMS subscription status of a customer.
+        type: boolean
+      birthDate:
+        description: Birth date of a customer. Format should be yyyyMMdd
+        type: string
+      accept:
+        description: "Acceptance of user agreement. Always true because validation is on client \r\n            application side."
+        type: boolean
+      email:
+        description: "E-mail address of customer. Can be used for any username parameter if a \r\n            username is not e-mail address. Please contact us if your username is not\r\n            e-mail address."
+        type: string
+      phone:
+        description: Telephone number of customer.
+        type: string
+      password:
+        description: "Password of customer. Password is plain text in post and put methods and\r\n            optinal in get method."
+        type: string
+      addresses:
+        $ref: '#/definitions/Adresses'
+        description: >-
+          Address list of a customer. This list is used in both basket and
+          profile
+      giftCheques:
+        description: "Gift cheque list of customer. Gift cheques are coupons assinged to \r\n            customers. This list is used in both basket and profile"
+        type: array
+        items:
+          $ref: '#/definitions/GiftCheque'
+      points:
+        format: double
+        description: >-
+          Reward points of customer. This value is used in both basket and
+          profile
+        type: number
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Adresses:
+    type: object
+    properties:
+      shipping:
+        description: Address list of customer
+        type: array
+        items:
+          $ref: '#/definitions/Address'
+  GiftCheque:
+    description: Gift cheques are discount coupons assigned to customers
+    required:
+      - amount
+      - code
+    type: object
+    properties:
+      chequeNumber:
+        description: Number or id of a gift cheque
+        type: string
+      activationDate:
+        description: 'Activation date of gift cheque, optional'
+        type: string
+      expireDate:
+        description: 'Expiration date of a gift cheque, optional'
+        type: string
+      amount:
+        description: Amout or percentage of gift cheque
+        type: string
+      code:
+        description: Code of gift cheque
+        type: string
+      status:
+        description: 'Status of gift cheque, optional'
+        type: string
+      type:
+        description: 'Type of gift cheque, optional'
+        type: string
+      legalText:
+        description: Legal text or description of gift cheque
+        type: string
+  Address:
+    description: ''
+    required:
+      - id
+      - name
+      - surname
+      - addressLine
+    type: object
+    properties:
+      id:
+        description: Id of address
+        type: string
+      addressName:
+        description: 'Name of address, optional but recommended for design issues'
+        type: string
+      name:
+        description: Name of person who receives delivery
+        type: string
+      surname:
+        description: Surname of person who receives delivery
+        type: string
+      email:
+        description: >-
+          Email of person who receives delivery, optional, required for
+          one-click checkout
+        type: string
+      addressLine:
+        description: 'Address as street, apartment informaition of address'
+        type: string
+      country:
+        description: "Country name of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      countryCode:
+        description: "Country code or id of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      state:
+        description: "State name of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      stateCode:
+        description: "State code or id of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      city:
+        description: "City name of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      cityCode:
+        description: "City code or id of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      district:
+        description: "District name of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      districtCode:
+        description: "District code or id of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      town:
+        description: "Town name of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      townCode:
+        description: "Town code or id of address, optional and configurable, see configuation\r\n            option for more detail"
+        type: string
+      corporate:
+        description: If address is corporate
+        type: boolean
+      companyTitle:
+        description: Company title of address
+        type: string
+      taxDepartment:
+        description: Tax department of company
+        type: string
+      taxNo:
+        description: Tax number of company
+        type: string
+      phoneNumber:
+        description: Telephone number of receiver
+        type: string
+      identityNo:
+        description: Identity number of receiver
+        type: string
+      zipCode:
+        description: Zip or postal code of address
+        type: string
+      usCheckoutCity:
+        description: Depreciated. Property for if address is us type
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  FacebookLogin:
+    description: ''
+    type: object
+    properties:
+      fbAccessToken:
+        description: Long access token of facebook
+        type: string
+      fbUid:
+        description: Facebook user id
+        type: string
+  LostPassword:
+    description: ''
+    required:
+      - userMessage
+    type: object
+    properties:
+      email:
+        description: Email address of customer who lost password
+        type: string
+      userMessage:
+        description: Instruction message for customer for resetting password
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Order:
+    description: ''
+    required:
+      - id
+      - currency
+      - total
+    type: object
+    properties:
+      id:
+        description: 'Id of order, necessary for order detail method'
+        type: string
+      trackingNumber:
+        description: 'shipment tracking number, for searching shipment, optional'
+        type: string
+      orderDate:
+        description: Date of order
+        type: string
+      shippingStatus:
+        description: Shipping status of order
+        type: string
+      paymentStatus:
+        description: Payment status of order
+        type: string
+      ipAddress:
+        description: 'Ip Address of order, optional'
+        type: string
+      lines:
+        description: Lines ordered from a basket
+        type: array
+        items:
+          $ref: '#/definitions/BasketLine'
+      delivery:
+        $ref: '#/definitions/Delivery'
+        description: Delivery information of order
+      payment:
+        $ref: '#/definitions/PaymentMethod'
+      currency:
+        description: Currency of order
+        type: string
+      itemsPriceTotal:
+        description: Item price total of order
+        type: string
+      discountTotal:
+        description: Discount total of order
+        type: string
+      subTotal:
+        description: Sub total of order
+        type: string
+      shippingTotal:
+        description: Total shipping price of order
+        type: string
+      total:
+        description: Total price that customer pays for order
+        type: string
+      taxTotalValue:
+        format: double
+        description: >-
+          Total price value that customer pays for order as double for
+          e-commerce tracking systems
+        type: number
+      shippingTotalValue:
+        format: double
+        description: >-
+          Total shipping price of order as double for e-commerce tracking
+          systems
+        type: number
+      totalValue:
+        format: double
+        description: >-
+          Total price that customer pays for order as double for e-commerce
+          tracking systems
+        type: number
+      canChangeAddress:
+        description: "Order address can be changed by user. Please set this value always false,\r\n            if you are not support this functionality."
+        type: boolean
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  BasketLine:
+    description: ''
+    required:
+      - productId
+      - product
+      - quantity
+      - extendedPrice
+      - extendedPriceTotal
+    type: object
+    properties:
+      productId:
+        description: Id of product in basket line
+        type: string
+      product:
+        $ref: '#/definitions/Product'
+        description: Product of line
+      quantity:
+        format: double
+        description: Number of units for product
+        type: number
+      placedPrice:
+        description: Price before tax for 1 unit of product
+        type: string
+      placedPriceTotal:
+        description: Price before tax for total unit of product
+        type: string
+      extendedPrice:
+        description: Price for 1 unit of product
+        type: string
+      extendedPriceValue:
+        format: double
+        description: >-
+          Price for 1 unit of product in decimal, this property is necessary for
+          analytics like google e-commerce tracking.
+        type: number
+      extendedPriceTotal:
+        description: Price of line (total price of products)
+        type: string
+      extendedPriceTotalValue:
+        format: double
+        description: >-
+          Price of line (total price of products) in decimal, this property is
+          necessary for analytics like google e-commerce tracking.
+        type: number
+      strikeoutPrice:
+        $ref: '#/definitions/Price'
+        description: 'Previous price of basket item, if there is a campaign or discount.'
+      status:
+        description: Status of line for order
+        type: string
+      averageDeliveryDays:
+        description: Shipping or supply information of line
+        type: string
+      variants:
+        description: "Selected variants of product, only selected group features should be in the list,\r\n            also only selected features is posted on updating basket"
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+  Delivery:
+    description: ''
+    type: object
+    properties:
+      shippingAddress:
+        $ref: '#/definitions/Address'
+        description: "Shipping address selected from address list of customer and an assigned \r\n            shipping address of a basket or order"
+      billingAddress:
+        $ref: '#/definitions/Address'
+        description: "Shipping address selected from address list of customer and an assigned \r\n            billing address of a basket or order"
+      shippingMethod:
+        description: "Selected shipping method(s) of a basket or order, if multi-shipping is \r\n            supported shipping methods can be assigned more than one, else there is \r\n            one shipping method for delivery."
+        type: array
+        items:
+          $ref: '#/definitions/ShippingMethod'
+      useSameAddressForBilling:
+        description: Depreciated. For using shipping addres for billing address too
+        type: boolean
+  PaymentMethod:
+    required:
+      - methodType
+      - type
+      - displayName
+    type: object
+    properties:
+      methodType:
+        description: "Main payment option, method type value can only be \"CreditCard\",\r\n            \"MoneyTransfer\", \"CashOnDelivery\", \"PayPal\" or \"ApplePay\""
+        type: string
+      type:
+        description: >-
+          Type of this method, usually id or type of payment option is set for
+          this value
+        type: string
+      displayName:
+        description: Name of payment type to display
+        type: string
+      bankCode:
+        description: Bank Code for money transfer
+        type: string
+      installment:
+        format: int32
+        description: Choosen installment number for credit card payment
+        type: integer
+      accountNumber:
+        description: Account number for money transfer option
+        type: string
+      branch:
+        description: Branch for money transfer option
+        type: string
+      iban:
+        description: Iban for money transfer option
+        type: string
+      cashOnDelivery:
+        $ref: '#/definitions/CashOnDelivery'
+        description: Choosen cash on delivery option
+      creditCard:
+        $ref: '#/definitions/CreditCard'
+        description: Credit card information for credit card option
+      threeDUrl:
+        $ref: '#/definitions/ThreeDUrl'
+        description: 3D Payment URLs if available
+      bkmExpresUrl:
+        $ref: '#/definitions/BkmExpressUrl'
+        description: BKMExpress payment urls
+      deviceType:
+        type: string
+      deviceOSType:
+        type: string
+      hiPayPayment:
+        $ref: '#/definitions/HiPayPayment'
+        description: HiPay payment info
+      PayPalPayment:
+        $ref: '#/definitions/PayPalPayment'
+        description: PayPal payment info
+      ApplePayPayment:
+        $ref: '#/definitions/ApplePayPayment'
+        description: ApplePay payment info
+  ShippingMethod:
+    description: Available shipping method of basket
+    required:
+      - id
+      - displayName
+      - price
+    type: object
+    properties:
+      id:
+        description: 'Shipping method id, shipping method will be set to basket with this id'
+        type: string
+      displayName:
+        description: Name of shipping method to be displayed
+        type: string
+      trackingAddress:
+        description: 'Tracikng address URL of shipping method, optional'
+        type: string
+      price:
+        description: Price of shipping method
+        type: string
+      priceForYou:
+        description: Price of shipping method with discount
+        type: string
+      imageUrl:
+        description: Image URL of shipping method
+        type: string
+  CashOnDelivery:
+    description: ''
+    required:
+      - type
+      - displayName
+      - description
+    type: object
+    properties:
+      type:
+        description: "Type of cash on delivery, we can consider type as an identifier, if there is\r\n            more than one cash on delivery options available"
+        type: string
+      displayName:
+        description: Name of method to display
+        type: string
+      additionalFee:
+        description: Additional fee of payment method
+        type: string
+      description:
+        description: "Description of cash on delivery method. This field can also be used for\r\n            additional cash on elivery information"
+        type: string
+      isSmsVerification:
+        description: Is SMS verification needed for cash on delivery
+        type: boolean
+      phoneNumber:
+        description: Telephone number for SMS verification
+        type: string
+      smsCode:
+        description: Code sent by SMS for verification
+        type: string
+  CreditCard:
+    required:
+      - owner
+      - number
+      - cvv
+      - month
+      - year
+    type: object
+    properties:
+      owner:
+        description: Name of owner
+        type: string
+      number:
+        description: 16 digit credit card number
+        type: string
+      cvv:
+        description: Cvv number of credit card
+        type: string
+      month:
+        format: int32
+        description: 'Month of expire date, 2 digits'
+        type: integer
+      year:
+        format: int32
+        description: Year of expire date
+        type: integer
+      type:
+        format: int32
+        description: 'Type of credit card, optional'
+        type: integer
+      installment:
+        format: int32
+        description: 'Number of selected installment, optional'
+        type: integer
+  ThreeDUrl:
+    description: ''
+    type: object
+    properties:
+      pendingUrl:
+        description: 3D paymnet URL of a bank
+        type: string
+      successUrl:
+        description: Redirection URL if transaction completed succesfully
+        type: string
+      failUrl:
+        description: Redirection URL if transaction is failed
+        type: string
+      cancelUrl:
+        description: Redirection URL if transaction is canceled by user
+        type: string
+  BkmExpressUrl:
+    description: ''
+    type: object
+    properties:
+      transactionUrl:
+        description: BKM transaction url
+        type: string
+      successUrl:
+        description: Redirection URL if transaction completed succesfully
+        type: string
+      failUrl:
+        description: Redirection URL if transaction is failed
+        type: string
+      cancelUrl:
+        description: Redirection URL if transaction is canceled by user
+        type: string
+      bkmToken:
+        description: Transaction identifier
+        type: string
+  HiPayPayment:
+    description: ''
+    type: object
+    properties:
+      TransactionId:
+        description: "Transaction id of HiPay payment. This id should be checked at server\r\n            side in order to be sure if transaction is completed successfully"
+        type: string
+  PayPalPayment:
+    description: ''
+    type: object
+    properties:
+      TransactionId:
+        description: "Transaction id of PayPal payment. This id should be checked at server\r\n            side in order to be sure if transaction is completed successfully"
+        type: string
+  ApplePayPayment:
+    type: object
+    properties:
+      tokenId:
+        description: Strip charge token
+        type: string
+  UserAgreement:
+    description: ''
+    required:
+      - agreementText
+    type: object
+    properties:
+      agreementText:
+        description: User agreement text
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  ProductSelectedVariant:
+    description: 'Model for response for product, productSearch and index services.'
+    type: object
+    properties:
+      productId:
+        description: Id of product
+        type: string
+      variants:
+        description: "Selected variants of product, only selected group features should be in the list,\r\n            also only selected features is posted on updating basket"
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Countries:
+    description: ''
+    type: object
+    properties:
+      countries:
+        description: Country list
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Location:
+    description: "Base location model for country, state, city, district and town. These entities \r\n            should match address fields."
+    required:
+      - code
+      - name
+    type: object
+    properties:
+      code:
+        description: Id or code of location
+        type: string
+      name:
+        description: Name of location
+        type: string
+  States:
+    description: ''
+    required:
+      - states
+    type: object
+    properties:
+      states:
+        description: State list of a country
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Cities:
+    description: ''
+    type: object
+    properties:
+      cities:
+        description: City list of a country
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Districts:
+    description: ''
+    required:
+      - code
+      - name
+      - districts
+    type: object
+    properties:
+      code:
+        description: Id or code of city that district belongs to
+        type: string
+      name:
+        description: Name of city that district belongs to
+        type: string
+      districts:
+        description: District list of a city
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Towns:
+    description: ''
+    required:
+      - code
+      - towns
+    type: object
+    properties:
+      code:
+        description: Code or id of district that towns belongs to
+        type: string
+      name:
+        description: Name of district that towns belongs to
+        type: string
+      towns:
+        description: Town list of a district
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Basket:
+    description: ''
+    required:
+      - id
+      - currency
+      - subTotal
+      - total
+      - delivery
+      - paymentOptions
+    type: object
+    properties:
+      id:
+        description: "Id of basket, this value is saved and sent as basket id parameter for\r\n            basket methods"
+        type: string
+      currency:
+        description: Currency of basket
+        type: string
+      itemsPriceTotal:
+        format: double
+        description: Total of item prices in basket
+        type: number
+      subTotal:
+        format: double
+        description: Subtotal of basket
+        type: number
+      beforeTaxTotal:
+        format: double
+        description: Before tax total
+        type: number
+      taxTotal:
+        format: double
+        description: Tax total
+        type: number
+      shippingTotal:
+        format: double
+        description: Shipping total
+        type: number
+      total:
+        format: double
+        description: Grand total of basket
+        type: number
+      errors:
+        description: "Errors on basket processes. Basket errors should return in this field \r\n            if it is a basket logic error. For example if quantity of products exceeds \r\n            stock, error should be returned in this error list. If there is a lower \r\n            level error like http errors then it returns on ServiceAdaptorExceptionModel"
+        type: array
+        items:
+          type: string
+      spentGiftChequeTotal:
+        format: double
+        description: Total discounts of gift cheques
+        type: number
+      discountTotal:
+        format: double
+        description: Total discounts on basket
+        type: number
+      usedPoints:
+        format: double
+        description: Reward points used in basket
+        type: number
+      usedPointsAmount:
+        format: double
+        description: Total discount of reward points in currency of basket
+        type: number
+      rewardPoints:
+        format: double
+        description: Points rewarded if customer buys basket
+        type: number
+      paymentFee:
+        format: double
+        description: Total fee for selected payment
+        type: number
+      estimatedSupplyDate:
+        description: Estimated supply or shipping date of basket
+        type: string
+      expirationTime:
+        format: int64
+        description: Optional property for expiration time of basket in milliseconds.
+        type: integer
+      lines:
+        description: 'Lines of basket, product lines are in this list'
+        type: array
+        items:
+          $ref: '#/definitions/BasketLineV2'
+      shippingMethods:
+        description: "List of available shipping methods for basket, these methods are used in \r\n            set address method"
+        type: array
+        items:
+          $ref: '#/definitions/ShippingMethod'
+      delivery:
+        $ref: '#/definitions/Delivery'
+        description: "Delivery information of basket, delivery information is set by \r\n            \"POST basket/{basket id}/address\" method"
+      paymentOptions:
+        $ref: '#/definitions/PaymentOptions'
+        description: Available payment options for basket
+      payment:
+        $ref: '#/definitions/PaymentMethod'
+        description: Payment method is method set from payment options.
+      giftCheques:
+        description: Gift cheques assigned to basket
+        type: array
+        items:
+          $ref: '#/definitions/GiftCheque'
+      discounts:
+        description: Discount codes assgined to basket
+        type: array
+        items:
+          $ref: '#/definitions/Discount'
+      isGiftWrappingEnabled:
+        description: Is gift wrapping enabled for basket
+        type: boolean
+      giftWrapping:
+        $ref: '#/definitions/GiftWrapping'
+        description: Gift wrapping information of basket
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  BasketLineV2:
+    description: ''
+    required:
+      - productId
+      - product
+      - quantity
+      - extendedPrice
+      - extendedPriceTotal
+    type: object
+    properties:
+      productName:
+        description: Name of product in basket line
+        type: string
+      productImage:
+        description: ImageUrl of product in basket line
+        type: string
+      previousQuantity:
+        format: double
+        description: Quantity before basket edit.
+        type: number
+      newQuantity:
+        format: double
+        description: Quantity after basket edit.
+        type: number
+      productId:
+        description: Id of product in basket line
+        type: string
+      product:
+        $ref: '#/definitions/Product'
+        description: Product of line
+      quantity:
+        format: double
+        description: Number of units for product
+        type: number
+      placedPrice:
+        description: Price before tax for 1 unit of product
+        type: string
+      placedPriceTotal:
+        description: Price before tax for total unit of product
+        type: string
+      extendedPrice:
+        description: Price for 1 unit of product
+        type: string
+      extendedPriceValue:
+        format: double
+        description: >-
+          Price for 1 unit of product in decimal, this property is necessary for
+          analytics like google e-commerce tracking.
+        type: number
+      extendedPriceTotal:
+        description: Price of line (total price of products)
+        type: string
+      extendedPriceTotalValue:
+        format: double
+        description: >-
+          Price of line (total price of products) in decimal, this property is
+          necessary for analytics like google e-commerce tracking.
+        type: number
+      strikeoutPrice:
+        $ref: '#/definitions/Price'
+        description: 'Previous price of basket item, if there is a campaign or discount.'
+      status:
+        description: Status of line for order
+        type: string
+      averageDeliveryDays:
+        description: Shipping or supply information of line
+        type: string
+      variants:
+        description: "Selected variants of product, only selected group features should be in the list,\r\n            also only selected features is posted on updating basket"
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+  PaymentOptions:
+    description: ''
+    type: object
+    properties:
+      creditCard:
+        description: Available credit card paymnets for basket
+        type: array
+        items:
+          $ref: '#/definitions/CreditCardInstallments'
+      moneyTransfer:
+        description: Available money transfer options for basket
+        type: array
+        items:
+          $ref: '#/definitions/MoneyTransfer'
+      cashOnDelivery:
+        description: Available cash on delivery method(s) for basket
+        type: array
+        items:
+          $ref: '#/definitions/CashOnDelivery'
+      paypal:
+        $ref: '#/definitions/Paypal'
+        description: Paypal information for basket
+      threeDUrl:
+        $ref: '#/definitions/ThreeDUrl'
+        description: 3D payment URLs for selected credit card
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Discount:
+    description: ''
+    required:
+      - displayName
+      - discountTotal
+    type: object
+    properties:
+      displayName:
+        description: Name of discount to display
+        type: string
+      discountTotal:
+        format: double
+        description: Total discount of promo code
+        type: number
+      promoCode:
+        description: Code of discount
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  GiftWrapping:
+    description: ''
+    required:
+      - isSelected
+      - giftWrappingFee
+    type: object
+    properties:
+      isSelected:
+        description: If gift wrapping is selected by customer
+        type: boolean
+      giftWrappingFee:
+        format: double
+        description: Additional gift wrapping fee
+        type: number
+      maxCharackter:
+        format: int32
+        description: 'Max character of gift message, optional'
+        type: integer
+      message:
+        description: 'Gift message, optional'
+        type: string
+  MoneyTransfer:
+    description: ''
+    required:
+      - id
+      - DisplayName
+    type: object
+    properties:
+      id:
+        description: 'Id of money transfer, id and code are used in set payment method'
+        type: string
+      Code:
+        description: 'Code of money transfer, id and code are used in set payment method'
+        type: string
+      DisplayName:
+        description: Name of bank to display
+        type: string
+      Branch:
+        description: Branch of bank account
+        type: string
+      AccountNumber:
+        description: Number of bank account
+        type: string
+      Iban:
+        description: Iban of bank account
+        type: string
+      ImageUrl:
+        description: Image URL of bank icon
+        type: string
+  Paypal:
+    description: ''
+    type: object
+    properties:
+      clientId:
+        description: Client id (merchant id) of PayPal to make payment
+        type: string
+      displayName:
+        description: 'Name of PayPal payment, optional'
+        type: string
+      isSandbox:
+        description: Is paypal sandbox account
+        type: boolean
+  UpdateBasketV2:
+    description: ''
+    type: object
+    properties:
+      product:
+        description: Line list to be synced.
+        type: array
+        items:
+          $ref: '#/definitions/BasketLineV2'
+  ShippingMethodList:
+    description: ''
+    type: object
+    properties:
+      shippingMethods:
+        description: Shipping method list
+        type: array
+        items:
+          $ref: '#/definitions/ShippingMethod'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  UserPoints:
+    description: ''
+    type: object
+    properties:
+      points:
+        format: double
+        description: Reward points of customer to set a basket for discount
+        type: number
+  Contract:
+    required:
+      - contract
+      - shippingContract
+    type: object
+    properties:
+      contract:
+        description: Terms of use
+        type: string
+      shippingContract:
+        description: Shipping contract
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Branches:
+    required:
+      - branches
+    type: object
+    properties:
+      branches:
+        description: List of branch
+        type: array
+        items:
+          $ref: '#/definitions/Branch'
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Branch:
+    required:
+      - title
+      - latitude
+      - longitude
+      - distance
+      - cityId
+    type: object
+    properties:
+      branchId:
+        format: int32
+        description: Id of branch
+        type: integer
+      title:
+        description: 'Title or name of branch, optional'
+        type: string
+      address:
+        description: Address of branch
+        type: string
+      description:
+        description: 'Description of branch, optional'
+        type: string
+      imageUrl:
+        description: 'Image URL of branch, optional'
+        type: string
+      shareUrl:
+        description: 'URL for social media share, optional'
+        type: string
+      latitude:
+        format: double
+        description: Latitude of branch
+        type: number
+      longitude:
+        format: double
+        description: Longitude of branch
+        type: number
+      workingHours:
+        description: Working hours of branch
+        type: string
+      workingDays:
+        description: Working days of branch
+        type: string
+      distance:
+        description: Distance to requested point
+        type: string
+      cityId:
+        format: int32
+        description: Id of city brach belongs to
+        type: integer
+      cityName:
+        description: Name of city brach belongs to
+        type: string
+      phoneNumber:
+        description: Telephone number of branch
+        type: string
+  BranchCity:
+    required:
+      - cityId
+      - name
+      - latitude
+      - longitude
+    type: object
+    properties:
+      cityId:
+        format: int32
+        description: Id of city
+        type: integer
+      name:
+        description: Name of city
+        type: string
+      latitude:
+        description: Latitude of city
+        type: string
+      longitude:
+        description: Longitude of city
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
+  Store:
+    description: ''
+    required:
+      - storeId
+      - storeName
+      - logoUrl
+    type: object
+    properties:
+      storeId:
+        description: Id of store
+        type: string
+      storeName:
+        description: Name of store
+        type: string
+      logoUrl:
+        description: Logo URL to be used in application design
+        type: string
+      ErrorCode:
+        description: "Error code for service owners. We do not need any error code for response, but\r\n            it is easy to determine where the error occures when there is a code for it."
+        type: string
+      Message:
+        description: "Error message for the return value. If UserFriendly value is true then we print\r\n            this message to user else we print a default error message."
+        type: string
+      UserFriendly:
+        description: Determines if the error message will print to screen or not.
+        type: boolean
